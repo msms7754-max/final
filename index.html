@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>졸업 축하 방명록</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Jua&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kitsch-pink': '#FF9EAA',
+                        'kitsch-dark-pink': '#FF748B',
+                        'neon-green': '#CCFF00',
+                        'retro-purple': '#E0BBE4',
+                        'retro-blue': '#A0C4FF',
+                    },
+                    fontFamily: {
+                        sans: ['Jua', 'sans-serif'],
+                        hand: ['Gaegu', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FFF0F5;
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            background-attachment: fixed;
+        }
+
+        .retro-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+        }
+
+        .retro-shadow-sm {
+            box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+        }
+
+        .retro-shadow:active {
+            box-shadow: none;
+            transform: translate(4px, 4px);
+        }
+    </style>
+</head>
+
+<body class="text-[#171717] overflow-x-hidden">
+
+    <main class="min-h-screen">
+        <div class="max-w-6xl mx-auto px-4 py-12 space-y-12">
+
+            <!-- Hero Section -->
+            <section class="text-center space-y-6 py-10">
+                <div class="inline-block relative">
+                    <h1
+                        class="text-6xl md:text-8xl font-black text-kitsch-pink drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] transform -rotate-2">
+                        졸업 축하해!
+                    </h1>
+                    <div class="absolute -top-10 -right-10 text-6xl animate-bounce">🎓</div>
+                    <div class="absolute -bottom-5 -left-10 text-5xl animate-pulse">✨</div>
+                </div>
+
+                <br>
+
+                <p
+                    class="text-2xl md:text-3xl font-hand text-retro-purple font-bold bg-white/50 inline-block px-4 py-2 rounded-full border-2 border-dashed border-retro-purple transform rotate-1 mt-6">
+                    2025년 졸업 축하 방명록
+                </p>
+            </section>
+
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+
+                <!-- Left Column: Form Section -->
+                <section class="md:col-span-1 relative z-10 w-full">
+                    <div
+                        class="bg-white/80 backdrop-blur-sm border-4 border-kitsch-pink rounded-lg retro-shadow p-6 sticky top-8">
+                        <h2 class="text-center text-3xl text-kitsch-dark-pink font-bold mb-6">
+                            방명록 남기기! ✏️
+                        </h2>
+
+                        <form id="guestbookForm" class="space-y-4">
+                            <div class="space-y-2">
+                                <label class="text-lg font-bold text-retro-purple block font-hand">이름</label>
+                                <input type="text" id="nameInput" required maxlength="20"
+                                    class="w-full h-12 rounded-md border-2 border-black bg-white px-3 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-kitsch-pink retro-shadow-sm font-hand transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-none"
+                                    placeholder="이름을 입력해주세요...">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-lg font-bold text-retro-purple block font-hand">메시지</label>
+                                <textarea id="messageInput" required maxlength="200"
+                                    class="w-full min-h-[100px] rounded-md border-2 border-black bg-white px-3 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-kitsch-pink retro-shadow-sm font-hand transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-none"
+                                    placeholder="졸업 축하 메시지를 남겨주세요!..."></textarea>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-lg font-bold text-retro-purple block font-hand">스티커 선택</label>
+                                <div class="flex flex-wrap gap-2 justify-center p-2 bg-pink-50 rounded-lg border-2 border-dashed border-kitsch-pink"
+                                    id="stickerContainer">
+                                    <!-- Stickers injected by JS -->
+                                </div>
+                                <input type="hidden" id="stickerInput" value="🎓">
+                            </div>
+
+                            <button type="submit"
+                                class="w-full bg-neon-green hover:bg-[#b3e600] text-black font-bold text-xl mt-4 h-12 rounded-md border-2 border-black retro-shadow transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+                                메시지 남기기! 💌
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Right Column: Messages Section -->
+                <section class="md:col-span-2">
+                    <h2
+                        class="text-4xl font-bold text-center mb-8 text-retro-blue drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                        축하 메시지 🌈
+                    </h2>
+                    <div id="messageWall" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+                        <!-- Messages injected by JS -->
+                    </div>
+                    <div id="emptyState" class="hidden col-span-full text-center py-20">
+                        <p class="text-2xl font-hand text-gray-400">아직 메시지가 없어요... 첫 번째 주인공이 되어주세요! 🌟</p>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="text-center py-8 font-hand text-gray-500">
+                <p>졸업을 진심으로 축하합니다! 💖</p>
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        // Constants
+        const STICKERS = ["🎓", "🎉", "💖", "✨", "🎀", "🐶", "🐱", "🌈", "🍀", "🧸"];
+
+        // State
+        let selectedSticker = STICKERS[0];
+
+        // DOM Elements
+        const form = document.getElementById('guestbookForm');
+        const stickerContainer = document.getElementById('stickerContainer');
+        const stickerInput = document.getElementById('stickerInput');
+        const messageWall = document.getElementById('messageWall');
+        const emptyState = document.getElementById('emptyState');
+
+        // Initialize Stickers
+        STICKERS.forEach(sticker => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = sticker;
+            btn.className = `text-2xl p-2 rounded-full transition-all hover:scale-110 active:scale-90 ${sticker === selectedSticker ? 'bg-kitsch-pink shadow-lg' : 'hover:bg-white'}`;
+            btn.onclick = () => {
+                selectedSticker = sticker;
+                stickerInput.value = sticker;
+                updateStickerStyles();
+            };
+            stickerContainer.appendChild(btn);
+        });
+
+        function updateStickerStyles() {
+            Array.from(stickerContainer.children).forEach(btn => {
+                if (btn.textContent === selectedSticker) {
+                    btn.className = `text-2xl p-2 rounded-full transition-all hover:scale-110 active:scale-90 bg-kitsch-pink shadow-lg`;
+                } else {
+                    btn.className = `text-2xl p-2 rounded-full transition-all hover:scale-110 active:scale-90 hover:bg-white`;
+                }
+            });
+        }
+
+        // Load Messages
+        function loadMessages() {
+            const messages = JSON.parse(localStorage.getItem('guestbook_messages') || '[]');
+            renderMessages(messages);
+        }
+
+        function renderMessages(messages) {
+            messageWall.innerHTML = '';
+
+            if (messages.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            messages.forEach((msg, index) => {
+                const card = document.createElement('div');
+
+                // Random styles
+                const rotate = index % 2 === 0 ? 'rotate-1' : '-rotate-1';
+                const bg = index % 3 === 0 ? 'bg-white' : index % 3 === 1 ? 'bg-pink-50' : 'bg-purple-50';
+
+                card.className = `relative transition-all hover:scale-105 hover:z-10 group`;
+                card.innerHTML = `
+                    <div class="rounded-lg border-2 border-black ${bg} text-card-foreground retro-shadow ${rotate} p-4 min-h-[150px] flex flex-col justify-between relative">
+                        <button onclick="deleteMessage('${msg.id}')" 
+                            class="absolute top-2 left-2 bg-white/50 hover:bg-red-100 text-red-400 hover:text-red-600 rounded-md px-2 py-1 text-sm font-bold transition-all z-20 shadow-sm backdrop-blur-sm font-hand" title="삭제하기">
+                            삭제
+                        </button>
+                        <div class="absolute -top-3 -right-3 text-4xl filter drop-shadow-md transform rotate-12 pointer-events-none">
+                            ${msg.sticker}
+                        </div>
+                        <p class="text-lg font-hand leading-relaxed break-words pt-4">
+                            "${msg.content}"
+                        </p>
+                        <div class="mt-4 flex justify-between items-end border-t-2 border-dashed border-gray-300 pt-2">
+                            <span class="font-bold text-kitsch-dark-pink">@${msg.name}</span>
+                            <span class="text-xs text-gray-500">
+                                ${new Date(msg.createdAt).toLocaleDateString()}
+                            </span>
+                        </div>
+                    </div>
+                `;
+                messageWall.appendChild(card);
+            });
+        }
+
+        // Delete Message
+        window.deleteMessage = (id) => {
+            if (!confirm("정말 삭제하시겠습니까? 🗑️")) return;
+
+            const messages = JSON.parse(localStorage.getItem('guestbook_messages') || '[]');
+            const messageIndex = messages.findIndex(m => m.id === id);
+
+            if (messageIndex === -1) return;
+
+            messages.splice(messageIndex, 1);
+            localStorage.setItem('guestbook_messages', JSON.stringify(messages));
+            loadMessages();
+        };
+
+        // Handle Submit
+        form.onsubmit = (e) => {
+            e.preventDefault();
+            const name = document.getElementById('nameInput').value;
+            const content = document.getElementById('messageInput').value;
+
+            if (!name || !content) return;
+
+            const newMessage = {
+                id: Date.now().toString(),
+                name,
+                content,
+                sticker: selectedSticker,
+                createdAt: new Date().toISOString()
+            };
+
+            const messages = JSON.parse(localStorage.getItem('guestbook_messages') || '[]');
+            messages.unshift(newMessage);
+            localStorage.setItem('guestbook_messages', JSON.stringify(messages));
+
+            // Save ownership
+            const myIds = JSON.parse(localStorage.getItem('my_guestbook_ids') || '[]');
+            myIds.push(newMessage.id);
+            localStorage.setItem('my_guestbook_ids', JSON.stringify(myIds));
+
+            // Reset form
+            document.getElementById('nameInput').value = '';
+            document.getElementById('messageInput').value = '';
+            selectedSticker = STICKERS[0];
+            updateStickerStyles();
+
+            loadMessages();
+        };
+
+        // Initial Load
+        loadMessages();
+
+    </script>
+</body>
+
+</html>
